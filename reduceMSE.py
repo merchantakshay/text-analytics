@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
 import re
 import pickle
 import string
@@ -26,9 +20,6 @@ ps = PorterStemmer()
 dictionary = []
 
 
-# In[2]:
-
-
 #split to multiple files and store in folder
 review = pd.read_csv("C:/Users/aksha/Desktop/Text Analytics/Homework2/movie_reviews.csv",header=None)
 review.columns= ['Label', 'Text']
@@ -39,15 +30,9 @@ for r in review.iterrows():
     file.close()
 
 
-# In[3]:
-
-
 #read files
 folderpath='C:/Users/aksha/Desktop/Text Analytics/Homework2/Split files/*.txt'
 docs = glob(folderpath)
-
-
-# In[4]:
 
 
 #open files
@@ -83,15 +68,9 @@ for d in docs:
     dictionary.append(stemmed)
 
 
-# In[5]:
-
-
 #tfidf matrix
 tfidf = TfidfVectorizer()
 matrix = np.asarray(tfidf.fit_transform(dictionary).todense())
-
-
-# In[6]:
 
 
 #mean square error
@@ -101,18 +80,12 @@ def mse(y, yh):
     return(mse)           
 
 
-# In[7]:
-
-
 #optimize mean square error using gradient descent
 def mse_diff(y, yh):
     cost = 0
     for i in range(len(y)):
         cost += (y[i]-yh[i])
     return(2*cost/len(y))
-
-
-# In[8]:
 
 
 #linear function
@@ -127,9 +100,6 @@ def linear_regression(X, y, lr, n_epoch):
     return(array)
 
 
-# In[9]:
-
-
 #plot MSE
 def plot(array):
     plt.plot(array)
@@ -137,9 +107,6 @@ def plot(array):
     plt.ylabel('Mean Square Error')
     plt.savefig('C:/Users/aksha/Desktop/Text Analytics/Homework2/658972668.png')
     plt.show()
-
-
-# In[10]:
 
 
 array = linear_regression(matrix, review.Label, 0.05, 200)
