@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
 import re
 import pickle
 import string
@@ -24,24 +18,15 @@ ps = PorterStemmer()
 dictionary = []
 
 
-# In[2]:
-
-
 #save output
 def save_result(obj, filepath):
     with open(filepath, 'wb') as out:
         pickle.dump(obj, out)
 
-
-# In[3]:
-
-
+        
 #read files
 folderpath='C:/Users/aksha/Desktop/Text Analytics/Homework1/univ/*.txt'
 docs = glob(folderpath)
-
-
-# In[4]:
 
 
 #open files
@@ -77,16 +62,10 @@ for d in docs:
     dictionary.append(stemmed)   
 
 
-# In[5]:
-
-
 #tfidf matrix
 import numpy
 tfidf = TfidfVectorizer()
 matrix = numpy.asarray(tfidf.fit_transform(dictionary).todense())
-
-
-# In[6]:
 
 
 #cosine similarities
@@ -100,18 +79,12 @@ def cosine_similarity(a, b):
     return(xy/math.sqrt(xx*yy))        
 
 
-# In[7]:
-
-
 def pairwise_cosine_similarities(matrix):
     return {(i, j): cosine_similarity(matrix[i], matrix[j])
         for i in range(matrix.shape[1]) for j in range(matrix.shape[1])} 
 
 
-# In[8]:
-
-
-UIN = '658972668'
+UIN = '111'
 save_result(matrix, UIN + '_matrix.pkl')
 save_result(pairwise_cosine_similarities, UIN + '_similarity.pkl')
 
