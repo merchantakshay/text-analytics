@@ -105,7 +105,7 @@ def plot(array):
     plt.plot(array)
     plt.xlabel('No of Iterations')
     plt.ylabel('Mean Square Error')
-    plt.savefig('C:/Users/aksha/Desktop/Text Analytics/Homework2/658972668.png')
+    plt.savefig('C:/Users/aksha/Desktop/Text Analytics/Homework2/error_rate.png')
     plt.show()
 
 
