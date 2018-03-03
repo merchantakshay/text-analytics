@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
 #imports
 import re
 import pickle
@@ -30,17 +24,11 @@ ps = PorterStemmer()
 dictionary = []
 
 
-# In[2]:
-
-
 #save output
 def save_list(result, filepath):
     with open(filepath, 'w') as out:
         for x in result:
             out.write(str(x) + '\n')
-
-
-# In[3]:
 
 
 #pre-process files
@@ -70,16 +58,10 @@ def extract(folderpath):
     return(dictionary)
 
 
-# In[4]:
-
-
 #train models
 def classifier(model):
     model.fit(train_matrix, train_review.Label)
     return(model.predict(test_matrix))
-
-
-# In[5]:
 
 
 #split train to multiple files and store in folder
@@ -92,22 +74,13 @@ for r in train_review.iterrows():
     file.close()
 
 
-# In[6]:
-
-
 #read train files
 train_dictionary = extract('C:/Users/aksha/Desktop/Text Analytics/Homework3/Split train/*.txt')
-
-
-# In[7]:
 
 
 #tfidf matrix -- train
 tfidf = TfidfVectorizer(min_df = 0.01, max_df = 0.99)
 train_matrix = np.asarray(tfidf.fit_transform(train_dictionary).todense())
-
-
-# In[8]:
 
 
 #split test to multiple files and store in folder
@@ -120,21 +93,12 @@ for r in test_review.iterrows():
     file.close()
 
 
-# In[9]:
-
-
 #read test files
 test_dictionary = extract('C:/Users/aksha/Desktop/Text Analytics/Homework3/Split test/*.txt')
 
 
-# In[10]:
-
-
 #tfidf matrix -- test
 test_matrix = np.asarray(tfidf.transform(test_dictionary).todense())
-
-
-# In[11]:
 
 
 #Logistic Regression
@@ -142,15 +106,9 @@ lr = LogisticRegression(random_state = 1)
 logistic = classifier(lr)
 
 
-# In[12]:
-
-
 #Decision Tree Classifier
 dtc = DecisionTreeClassifier(random_state = 1)
 tree = classifier(dtc)
-
-
-# In[13]:
 
 
 #Random Forest Classifier
@@ -158,20 +116,14 @@ rf = RandomForestClassifier(random_state = 1)
 rfc = classifier(rf)
 
 
-# In[14]:
-
-
 #Voting CLassifier
 voting = VotingClassifier(estimators=[('lr', lr), ('rf', rf), ('tree', dtc)], voting='hard')
 voting = classifier(voting)
 
 
-# In[15]:
-
-
 #save files
-save_list(logistic, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/658972668_logistic.txt')
-save_list(tree, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/658972668_tree.txt')
-save_list(rfc, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/658972668_rf.txt')
-save_list(voting, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/658972668_voting.txt')
+save_list(logistic, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/classification_logistic.txt')
+save_list(tree, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/classification_tree.txt')
+save_list(rfc, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/classification_rf.txt')
+save_list(voting, 'C:/Users/aksha/Desktop/Text Analytics/Homework3/Output/classification_voting.txt')
 
